@@ -7,9 +7,12 @@ session_start();
 if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     header('Location: index.php');
     $nombre = $_SESSION['usuario'];
+    $id = $_SESSION['id'];
+
 } else {
   $estado = $_SESSION['usuario'];
   $nombre = $_SESSION['nombre'];
+  $id = $_SESSION['id'];
   $salir = '<a  style="padding-left: 13px;" class="class="dropdown-item text-danger" href="../recursos/salir.php" target="_self"><i class="material-icons text-danger">&#xE879;</i>Cerrar sesión</a>';
   require('../recursos/sesiones.php');
   date_default_timezone_set('date.timezone = "America/Bogota";');
@@ -108,6 +111,12 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link " href="listarapuesta.php">
+                  <i class="material-icons">account_balance_wallet</i>
+                  <span>Listar apuesta</span> 
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link " href="listaBitacora.php">
                   <i class="material-icons">format_align_left</i>
                   <span>Bitacora de apuesta</span>
@@ -150,6 +159,8 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           </div>
 
 
+
+
           <div class="main-content-container container-fluid px-4">
             <div class="page-header row no-gutters py-4">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -168,10 +179,9 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         <tr>
                           <th scope="col" class="border-0">#</th>
                           <th scope="col" class="border-0">Nombre</th>
-                          <th scope="col" class="border-0">Apellido</th>
-                          <th scope="col" class="border-0">cédula</th>
                           <th scope="col" class="border-0">fecha</th>
-                          <th scope="col" class="border-0">Acción</th>
+                          <th scope="col" class="border-0">ganancia</th>
+                       
 
                         </tr>
                       </thead>
@@ -179,19 +189,18 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                         
                       <?php 
                           require('../conex/conexion.php');
-                          $query="SELECT bt.accion,bt.id, bt.fecha, bt.accion, us.nombre as nombre, us.apellido as apellido, us.cedula as cedula  FROM bitacora as bt  join usuario as us on bt.id_usuario = us.id ";
+                          $query="SELECT *  FROM bitacora ";
                           $answer = $conexion -> query($query);
                           while ($row=$answer->fetch_assoc()){
                           ?>
                           <tr>
                               <td> <?php echo $row['id']; ?></td>
-                              <td> <?php echo $row['nombre']; ?></td>
-                              <td> <?php echo $row['apellido']; ?></td>
-                              <td> <?php echo $row['cedula']; ?></td>
-                              <td> <?php echo $row['fecha']; ?></td> 
-                              <td> <?php echo $row['accion']; ?></td>  
+                              <td> <?php echo $row['id_usuario']; ?></td>
+                              <td> <?php echo $row['fecha']; ?></td>
+                              <td> <?php echo $row['accion']; ?></td>
+                             
  
-}                          </tr>
+                        </tr>
                           <?php 
                           }
                           ?>

@@ -111,6 +111,12 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link " href="listarapuesta.php">
+                  <i class="material-icons">account_balance_wallet</i>
+                  <span>Listar apuesta</span> 
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link " href="listaBitacora.php">
                   <i class="material-icons">format_align_left</i>
                   <span>Bitacora de apuesta</span>
@@ -158,66 +164,99 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             <!-- Page Header -->
             <div class="page-header row no-gutters py-4">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <span class="text-uppercase page-subtitle">Actualizar</span>
-                <h3 class="page-title">actualizar usuario</h3>
+                <span class="text-uppercase page-subtitle">Modificar</span>
+                <h3 class="page-title"> apuesta</h3>
               </div>
             </div>
             <div class="row">       
               <div class="col-lg-12">
                 <div class="card card-small mb-12">
                   <div class="card-header border-bottom">
-                    <h6 class="m-0">Información básica</h6>
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item p-3">
                       <div class="row">
                         <div class="col-md-12">
+                        <form action="modules/creacionApuesta.php" method="post"> 
+
                         <?php 
                           require('../conex/conexion.php');
                           $id_usuario = $_GET['id'];
-                          $query2="SELECT * from usuario where id =$id_usuario";
+                          $query2="SELECT * from apuesta where id =$id_usuario";
                           $answer2 = $conexion -> query($query2);
                           while ($row=$answer2->fetch_assoc()){
                           ?>
 
 
-                        <form action="modules/creacionUsuario.php" method="post"> 
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="feFirstName">Nombre</label>
-                                <input type="text" class="form-control" name="feFirstName" placeholder="Ingrese nombre" value=" <?php echo $row['nombre']; ?>"> </div>
+                                <input type="text" class="form-control" name="feFirstName" placeholder="Ingrese nombre" value=" <?php echo $row['nombreapellido']; ?>"> </div>
                               <div class="form-group col-md-6">
-                                <label for="feLastName">Apellido</label>
-                                <input type="text" class="form-control" name="feLastName" placeholder="Ingrese apellido"  value="<?php echo $row['apellido']; ?>"> </div>
+                                <label for="feCed">Cedula</label>
+                                <input type="text" class="form-control" name="feCed" placeholder="Ingrese Cédula" value=" <?php echo $row['cedula']; ?>" disabled> </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
-                                <label for="feEmailAddress">Correo</label>
-                                <input type="email" class="form-control" name="feEmailAddress" placeholder="sierra@correo.com"  value=" <?php echo $row['correo']; ?>" > </div>
+                                <label for="fePlataforma">Plataforma</label>
+                                <select class="form-control" name="fePlataforma">
+                                <option selected="true" value="<?php echo $row['plataforma']; ?>"><?php echo $row['plataforma']; ?></option>
+
+                                    <option value="parlay">parlay</option>
+                                    <option value="sportium">sportium</option>
+                                    <option value="bet365">bet365</option>
+                                    <option value="betcris">betcris</option>
+                                  </select> </div>
                               <div class="form-group col-md-6">
-                              <label for="feInputUser">Usuario</label>
-                              <input type="text" class="form-control" name="feInputUser" placeholder="Ingrese usuario"  value=" <?php echo $row['usuario']; ?>"> </div>
+                              <label for="fePista">Pista</label>
+                                <select class="form-control" name="fePista">
+                                <option selected="true" value="<?php echo $row['pista']; ?>"><?php echo $row['pista']; ?></option>
+
+                                    <option value="larga">Larga</option>
+                                    <option value="mediana">Mediana</option>
+                                    <option value="corta">Corta</option>
+                                  </select> </div>
                             </div>
+                            <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="feInputCed">Cédula</label>
-                              <input type="text" class="form-control" name="feInputCed" placeholder="Ingrese Cédula"  value=" <?php echo $row['cedula']; ?>"> </div>
-                            </div>
+                            <label for="feCaballo">Caballo</label>
+                                <select class="form-control" name="feCaballo">
+                                <option selected="true" value="<?php echo $row['caballo']; ?>"><?php echo $row['caballo']; ?></option>
+
+                                    <option value="c1">C1</option>
+                                    <option value="c2">C2</option>
+                                    <option value="c3">C3</option>
+                                    <option value="c4">C4</option>
+                                    <option value="c5">C5</option>
+                                  </select></div>
+                              <div class="form-row">
+                                <div class="form-group col-md-6">
+                                <label for="feTipo">Tipo</label>
+                                <select class="form-control" name="feTipo">
+                                <option selected="true" value="<?php echo $row['tipo']; ?>"><?php echo $row['tipo']; ?></option>
+
+                                    <option value="particiapante">particiapante</option>
+                                    <option value="ganador">ganador</option>
+                                    <option value="perdedor">perdedor</option>
+                                  </select></div>
+                           
                             <div class="form-group col-md-6">
-                            <div class="form-group">
-                              <label for="feInputPass">Contraseña</label>
-                              <input type="text" class="form-control" name="feInputPass" placeholder="Ingrese Contraseña"  value=" <?php echo $row['pass']; ?>"> </div>
-                              </div>        <input  class="form-control" name="atributo" value="actualizar" type="hidden"><input  class="form-control" name="id_usuario" value=" <?php echo $row['id']; ?>" type="hidden">
-                              <?php 
-                          }
-                          ?>
-                            <button type="submit"  class="btn btn-accent">Actualizar usuario</button>
+
+                              <label for="feMonto">Monto</label> 
+                              <input type="number" class="form-control" name="feMonto" placeholder="Ingrese valor a apostar"  value="<?php echo $row['monto'];?>"> </div>
+
+                            </div> </div>   
+
+                            <button type="submit" class="btn btn-accent">modificar Apuesta</button>   <input  class="form-control" name="atributo" value="actualizar" type="hidden"> <input  class="form-control" name="id_apuesta" value="<?php echo $row['id'];?>" type="hidden">
                         </div>
                       </div>
                     </li>
                   </ul>
                 </div>
               </div>
-           
+              <?php 
+                          }
+                          ?>
            </form>
           </div>
           <footer></footer> 
@@ -226,7 +265,7 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
     <script src="scripts/extras.1.1.0.min.js"></script>
-    <script src="scripts/shards-dashboards.1.1.0.min.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js'></script>
    

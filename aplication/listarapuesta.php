@@ -1,4 +1,3 @@
- 
 <?php
 //Reanudamos la sesión
 session_start();
@@ -8,9 +7,12 @@ session_start();
 if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     header('Location: index.php');
     $nombre = $_SESSION['usuario'];
+    $id = $_SESSION['id'];
+
 } else {
   $estado = $_SESSION['usuario'];
   $nombre = $_SESSION['nombre'];
+  $id = $_SESSION['id'];
   $salir = '<a  style="padding-left: 13px;" class="class="dropdown-item text-danger" href="../recursos/salir.php" target="_self"><i class="material-icons text-danger">&#xE879;</i>Cerrar sesión</a>';
   require('../recursos/sesiones.php');
   date_default_timezone_set('date.timezone = "America/Bogota";');
@@ -82,9 +84,6 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           <div class="main-navbar">
             <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
               <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
-                <div class="d-table m-auto">
-                  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="images/menu.svg" alt="Menú de sistema">
-                </div>
               </a>
               <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
                 <i class="material-icons">&#xE5C4;</i>
@@ -106,13 +105,19 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="carteracrear.php">
+                <a class="nav-link " href="crearApuesta.php">
                   <i class="material-icons">account_balance_wallet</i>
                   <span>Nueva apuesta</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="listarcartera.php">
+                <a class="nav-link " href="listarapuesta.php">
+                  <i class="material-icons">account_balance_wallet</i>
+                  <span>Listar apuesta</span> 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="listaBitacora.php">
                   <i class="material-icons">format_align_left</i>
                   <span>Bitacora de apuesta</span>
                 </a>
@@ -153,10 +158,80 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             </nav>
           </div>
 
+
+
           <div class="main-content-container container-fluid px-4">
-         
-         </div>
-         <footer></footer> 
+            <div class="page-header row no-gutters py-4">
+              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <span class="text-uppercase page-subtitle">Listado </span>
+                <h3 class="page-title">de apuestas</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="card card-small mb-4">
+                  <div class="card-header border-bottom">
+                  </div>
+                  <div class="card-body p-0 pb-3 text-center">
+                    <table class="table mb-0">
+                      <thead class="bg-light">
+                        <tr>
+                          <th scope="col" class="border-0">#</th>
+                          <th scope="col" class="border-0">Código</th>
+
+                          <th scope="col" class="border-0">Nombre</th>
+                          <th scope="col" class="border-0">cédula</th>
+                          <th scope="col" class="border-0">fecha</th>
+                          <th scope="col" class="border-0">monto</th>
+                          <th scope="col" class="border-0">pista</th>
+                          <th scope="col" class="border-0">Caballo</th>
+
+                          <th scope="col" class="border-0">plataforma</th>
+                          <th scope="col" class="border-0">tipo</th>
+                          <th scope="col" class="border-0">ganancia</th>
+
+                          <th scope="col" class="border-0">Acción</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                      <?php 
+                          require('../conex/conexion.php');
+                          $query="SELECT * from apuesta";
+                          $answer = $conexion -> query($query);
+                          while ($row=$answer->fetch_assoc()){
+                          ?>
+                          <tr>
+                              <td> <?php echo $row['id']; ?></td>
+                              <td> <?php echo $row['cod']; ?></td>
+
+                              <td> <?php echo $row['nombreapellido']; ?></td>
+                              <td> <?php echo $row['cedula']; ?></td>
+                              <td> <?php echo $row['fecha_apuesta']; ?></td> 
+                              <td> <?php echo $row['monto']; ?></td> 
+                              <td> <?php echo $row['pista']; ?></td>
+                              <td> <?php echo $row['caballo']; ?></td>
+                              <td> <?php echo $row['plataforma']; ?></td>
+                              <td> <?php echo $row['tipo']; ?></td> 
+                              <td> <?php echo $row['ganancia']; ?></td> 
+
+                              <td> <a href="modificarapuesta.php?id=<?php echo $row ['id'];?>">Modificar </a></td>
+                              <td> <a href="modules/CreacionApuesta.php?id=<?php echo $row ['id'];?>&atributo=borrar">Eliminar </a></td>
+ 
+                         </tr>
+                          <?php 
+                          }
+                          ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <footer></footer> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>

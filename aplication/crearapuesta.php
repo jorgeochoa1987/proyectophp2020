@@ -7,9 +7,12 @@ session_start();
 if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     header('Location: index.php');
     $nombre = $_SESSION['usuario'];
+    $id = $_SESSION['id'];
+
 } else {
   $estado = $_SESSION['usuario'];
   $nombre = $_SESSION['nombre'];
+  $id = $_SESSION['id'];
   $salir = '<a  style="padding-left: 13px;" class="class="dropdown-item text-danger" href="../recursos/salir.php" target="_self"><i class="material-icons text-danger">&#xE879;</i>Cerrar sesión</a>';
   require('../recursos/sesiones.php');
   date_default_timezone_set('date.timezone = "America/Bogota";');
@@ -108,6 +111,12 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link " href="listarapuesta.php">
+                  <i class="material-icons">account_balance_wallet</i>
+                  <span>Listar apuesta</span> 
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link " href="listaBitacora.php">
                   <i class="material-icons">format_align_left</i>
                   <span>Bitacora de apuesta</span>
@@ -156,46 +165,66 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
             <div class="page-header row no-gutters py-4">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                 <span class="text-uppercase page-subtitle">Agregar</span>
-                <h3 class="page-title">Nuevo usuario</h3>
+                <h3 class="page-title">Nueva apuesta</h3>
               </div>
             </div>
             <div class="row">       
               <div class="col-lg-12">
                 <div class="card card-small mb-12">
                   <div class="card-header border-bottom">
-                    <h6 class="m-0">Información básica</h6>
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item p-3">
                       <div class="row">
                         <div class="col-md-12">
-                        <form action="modules/creacionUsuario.php" method="post"> 
+                        <form action="modules/creacionApuesta.php" method="post"> 
                             <div class="form-row">
                               <div class="form-group col-md-6">
                                 <label for="feFirstName">Nombre</label>
                                 <input type="text" class="form-control" name="feFirstName" placeholder="Ingrese nombre"> </div>
                               <div class="form-group col-md-6">
-                                <label for="feLastName">Apellido</label>
-                                <input type="text" class="form-control" name="feLastName" placeholder="Ingrese apellido"> </div>
+                                <label for="feCed">Cedula</label>
+                                <input type="text" class="form-control" name="feCed" placeholder="Ingrese Cédula"> </div>
                             </div>
                             <div class="form-row">
                               <div class="form-group col-md-6">
-                                <label for="feEmailAddress">Correo</label>
-                                <input type="email" class="form-control" name="feEmailAddress" placeholder="sierra@correo.com"> </div>
+                                <label for="fePlataforma">Plataforma</label>
+                                <select class="form-control" name="fePlataforma">
+                                    <option value="parlay">parlay</option>
+                                    <option value="sportium">sportium</option>
+                                    <option value="bet365">bet365</option>
+                                    <option value="betcris">betcris</option>
+                                  </select> </div>
                               <div class="form-group col-md-6">
-                              <label for="feInputUser">Usuario</label>
-                              <input type="text" class="form-control" name="feInputUser" placeholder="Ingrese usuario"> </div>
+                              <label for="fePista">Pista</label>
+                                <select class="form-control" name="fePista">
+                                    <option value="larga">Larga</option>
+                                    <option value="mediana">Mediana</option>
+                                    <option value="corta">Corta</option>
+                                  </select> </div>
                             </div>
+                            <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="feInputCed">Cédula</label>
-                              <input type="text" class="form-control" name="feInputCed" placeholder="Ingrese Cédula"> </div>
+                            <label for="feCaballo">Caballo</label>
+                                <select class="form-control" name="feCaballo">
+                                    <option value="c1">C1</option>
+                                    <option value="c2">C2</option>
+                                    <option value="c3">C3</option>
+                                    <option value="c4">C4</option>
+                                    <option value="c5">C5</option>
+                                  </select></div>
+                                  <div class="form-group col-md-6">
+                                <label for="feTipo">Tipo</label>
+                                <input type="text" class="form-control" name="feTipo" Value="particiapante" disabled> </div>
                             </div>
+                            <div class="form-row">
                             <div class="form-group col-md-6">
                             <div class="form-group">
-                              <label for="feInputPass">Contraseña</label>
-                              <input type="text" class="form-control" name="feInputPass" placeholder="Ingrese Contraseña"> </div>
-                              </div>
-                            <button type="submit" id="crearCliente" class="btn btn-accent">Crear usuario</button>
+                              <label for="feMonto">Monto</label>
+                              <input type="number" class="form-control" name="feMonto" placeholder="Ingrese valor a apostar"> </div>
+                              </div> </div>                         <input  class="form-control" name="atributo" value="crear" type="hidden">
+
+                            <button type="submit" class="btn btn-accent">Crear Apuesta</button>
                         </div>
                       </div>
                     </li>

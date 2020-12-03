@@ -1,5 +1,3 @@
-<!doctype html>
-<html class="no-js h-100" lang="es">
 <?php
 //Reanudamos la sesión
 session_start();
@@ -9,9 +7,12 @@ session_start();
 if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     header('Location: index.php');
     $nombre = $_SESSION['usuario'];
+    $id = $_SESSION['id'];
+
 } else {
   $estado = $_SESSION['usuario'];
   $nombre = $_SESSION['nombre'];
+  $id = $_SESSION['id'];
   $salir = '<a  style="padding-left: 13px;" class="class="dropdown-item text-danger" href="../recursos/salir.php" target="_self"><i class="material-icons text-danger">&#xE879;</i>Cerrar sesión</a>';
   require('../recursos/sesiones.php');
   date_default_timezone_set('date.timezone = "America/Bogota";');
@@ -104,13 +105,19 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="carteracrear.php">
+                <a class="nav-link " href="crearApuesta.php">
                   <i class="material-icons">account_balance_wallet</i>
                   <span>Nueva apuesta</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="listarcartera.php">
+                <a class="nav-link " href="listarapuesta.php">
+                  <i class="material-icons">account_balance_wallet</i>
+                  <span>Listar apuesta</span> 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="listaBitacora.php">
                   <i class="material-icons">format_align_left</i>
                   <span>Bitacora de apuesta</span>
                 </a>
@@ -150,6 +157,7 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
               </nav>
             </nav>
           </div>
+
 
           <!-- / .main-navbar -->
           <div class="main-content-container container-fluid px-4">
@@ -195,7 +203,13 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                             <div class="form-group">
                               <label for="feInputPass">Contraseña</label>
                               <input type="text" class="form-control" name="feInputPass" placeholder="Ingrese Contraseña"> </div>
+                              <div class="form-group">
+                              <label for="feInpuGen">Genero</label>
+                              <input type="text" class="form-control" name="feInpuGen" placeholder="Ingrese Genero"> </div>
                               </div>
+
+                              <input  class="form-control" name="atributo" value="crear" type="hidden">
+
                             <button type="submit" id="crearCliente" class="btn btn-accent">Crear usuario</button>
                         </div>
                       </div>

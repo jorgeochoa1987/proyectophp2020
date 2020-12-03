@@ -25,6 +25,8 @@ if($userBD == $userPOST and $passPOST== $passwordBD){
 
 	session_start();
 	$_SESSION['nombre'] = $datos['nombre'];
+	$_SESSION['id'] = $datos['id'];
+
 	$_SESSION['apellido'] = $datos['apellido'];
 	$_SESSION['correo'] = $datos['correo']; 
 	$_SESSION['usuario'] = $datos['usuario'];

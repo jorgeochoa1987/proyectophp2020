@@ -9,7 +9,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 //Si existe una sesión correcta, mostramos la página para los usuarios
 //Sino, mostramos la página de acceso y registro de usuarios
 if(isset($_SESSION['usuario']) and $_SESSION['estado'] == 'Autenticado') {
-	header("location:aplication/index.php");//otro comentario
+	header("location:aplication/nuevousuario.php");//otro comentario
 	die();
 } else {
 	include('login.php');//comentario
