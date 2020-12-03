@@ -107,7 +107,7 @@ $("#acceso").on("submit", function(e){
 	$.ajax({
 		//Definimos la URL del archivo al cual vamos a enviar los datos
 		url: "recursos/acceder.php",
-		//Definimos el tipo de método de envío
+		//Definimos el tipo de método de envío 
 		type: "POST",
 		//Definimos el tipo de datos que vamos a enviar y recibir
 		dataType: "HTML",

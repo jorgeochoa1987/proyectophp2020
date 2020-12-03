@@ -1,7 +1,6 @@
 <?php
 //Reanudamos la sesión
 session_start();
-
 //Comprobamos si el usario está logueado
 //Si no lo está, se le redirecciona al index
 //Si lo está, definimos el botón de cerrar sesión y la duración de la sesión
@@ -10,8 +9,7 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
     $nombre = $_SESSION['usuario'];
 } else {
   $estado = $_SESSION['usuario'];
-  $nombreApe = $_SESSION['nombreapellido'];
-  $foto = $_SESSION['foto'];
+  $nombre = $_SESSION['nombre'];
   $salir = '<a  style="padding-left: 13px;" class="class="dropdown-item text-danger" href="../recursos/salir.php" target="_self"><i class="material-icons text-danger">&#xE879;</i>Cerrar sesión</a>';
   require('../recursos/sesiones.php');
   date_default_timezone_set('date.timezone = "America/Bogota";');
@@ -23,15 +21,14 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>PRESTOAPP</title>
-    <meta name="description" content="sistema de cobranza colombia">
+    <title>Mr caballo</title>
+    <meta name="description" content="Sistema de apuestas">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="styles/shards-dashboards.1.1.0.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css'>
-    
     <link rel="stylesheet" href="styles/extras.1.1.0.min.css">
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <link rel="icon" href="images/money.png" type="image/png" sizes="16x16">
@@ -69,7 +66,6 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
   @media (max-width: 500px){ 
     .promo-popup.hidden {
     bottom: -74% !important;
-   
 }
 }
   </style>
@@ -94,77 +90,32 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
               </a>
             </nav>
           </div>
-         
           <div class="nav-wrapper">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="index.php">
-                  <i class="material-icons">edit</i>
-                  <span>Inicio</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="nuevocliente.php">
+                <a class="nav-link " href="nuevousuario.php">
                   <i class="material-icons">group_add</i>
-                  <span>Nuevo cliente</span>
+                  <span>Nuevo Usuario</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="listarcliente.php">
+                <a class="nav-link " href="listarusuario.php">
                   <i class="material-icons">accessibility</i>
-                  <span>Listar clientes</span>
+                  <span>Listar Usuario</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link " href="carteracrear.php">
                   <i class="material-icons">account_balance_wallet</i>
-                  <span>Nueva cartera</span>
+                  <span>Nueva apuesta</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link " href="listarcartera.php">
                   <i class="material-icons">format_align_left</i>
-                  <span>Listar Cartera</span>
+                  <span>Bitacora de apuesta</span>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="nuevoprestamo.php">
-                  <i class="material-icons">monetization_on</i>
-                  <span>Nuevo prestamo</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="listarprestamo.php">
-                  <i class="material-icons">monetization_on</i>
-                  <span>Listas  prestamos</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="listarcliente.php">
-                  <i class="material-icons">money_off</i>
-                  <span>Prestamos vencidos</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="#">
-                  <i class="material-icons">label</i>
-                  <span>Reportes</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="listarcliente.php">
-                  <i class="material-icons">assignment</i>
-                  <span>Reportes por cartera </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link " href="listarcliente.php">
-                  <i class="material-icons">assignment</i>
-                  <span>Reportes de clientes </span>
-                </a>
-              </li>
-
-              
+              </li>  
             </ul>
           </div>
         </aside>
@@ -172,8 +123,7 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
         <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
           <div class="main-navbar sticky-top bg-white">
             <!-- Main Navbar -->
-            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
-             
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">     
               <ul class="navbar-nav border-left flex-row ">
                 <li class="nav-item border-right dropdown notifications">
                  
@@ -185,13 +135,13 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                   </a>
                   <div class="dropdown-menu dropdown-menu-small">
                     <a class="dropdown-item" href="user-profile.php">
-                      <i class="material-icons">&#xE7FD;</i> Mi perfil</a>
+                    <!--  <i class="material-icons">&#xE7FD;</i>Mi cuenta</a>-->
                     
                     <div class="dropdown-divider"></div>
                    <?php echo $salir ?>
                       
                   </div>
-                </li>
+                </li> 
             
               </ul>
               <nav class="nav">

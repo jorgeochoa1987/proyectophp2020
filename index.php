@@ -14,5 +14,5 @@ if(isset($_SESSION['usuario']) and $_SESSION['estado'] == 'Autenticado') {
 } else {
 	include('login.php');//comentario
 	die();
-};
+}; 
 ?>

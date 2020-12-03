@@ -1,6 +1,6 @@
 <?php
 
-$conexion = new mysqli("localhost", "root", "", "u465803286_prestoapp");
+$conexion = new mysqli("localhost", "mrcaballo", "mrcaballo", "mrcaballo");
 
  if($conexion === false) { 
     echo 'Ha habido un error <br>'.mysqli_connect_error(); 
