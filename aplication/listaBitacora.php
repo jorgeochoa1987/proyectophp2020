@@ -153,7 +153,7 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
           <div class="main-content-container container-fluid px-4">
             <div class="page-header row no-gutters py-4">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <span class="text-uppercase page-subtitle">Listado</span>
+                <span class="text-uppercase page-subtitle">Bitacora</span>
                 <h3 class="page-title">de usuarios</h3>
               </div>
             </div>
@@ -169,18 +169,17 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                           <th scope="col" class="border-0">#</th>
                           <th scope="col" class="border-0">Nombre</th>
                           <th scope="col" class="border-0">Apellido</th>
-                          <th scope="col" class="border-0">Correo</th>
-                          <th scope="col" class="border-0">Usuario</th>
-                          <th scope="col" class="border-0">Cédula</th>
-                          <th scope="col" class="border-0">Modificar</th>
-                          <th scope="col" class="border-0">Eliminar</th>
+                          <th scope="col" class="border-0">cédula</th>
+                          <th scope="col" class="border-0">fecha</th>
+                          <th scope="col" class="border-0">Acción</th>
+
                         </tr>
                       </thead>
                       <tbody>
                         
                       <?php 
                           require('../conex/conexion.php');
-                          $query="SELECT * FROM usuario ";
+                          $query="SELECT bt.accion,bt.id, bt.fecha, bt.accion, us.nombre as nombre, us.apellido as apellido, us.cedula as cedula  FROM bitacora as bt  join usuario as us on bt.id_usuario = us.id ";
                           $answer = $conexion -> query($query);
                           while ($row=$answer->fetch_assoc()){
                           ?>
@@ -188,12 +187,11 @@ if(!isset($_SESSION['usuario']) and $_SESSION['estado'] != 'Autenticado') {
                               <td> <?php echo $row['id']; ?></td>
                               <td> <?php echo $row['nombre']; ?></td>
                               <td> <?php echo $row['apellido']; ?></td>
-                              <td> <?php echo $row['correo']; ?></td>  
-                              <td> <?php echo $row['usuario']; ?></td>
                               <td> <?php echo $row['cedula']; ?></td>
-                              <td> <a href="modificarUsuario.php?id=<?php echo $row ['id'];?>">Modificar </a></td>
-                              <td> <a href="modules/BorrarUsuario.php?id=<?php echo $row ['id'];?>">Eliminar </a></td>
-                          </tr>
+                              <td> <?php echo $row['fecha']; ?></td> 
+                              <td> <?php echo $row['accion']; ?></td>  
+ 
+}                          </tr>
                           <?php 
                           }
                           ?>
